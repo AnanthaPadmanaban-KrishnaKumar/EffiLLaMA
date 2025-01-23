@@ -1,0 +1,31 @@
+# Requirements for LoRA and QLoRA quantization methods
+
+# PyTorch and CUDA dependencies
+torch
+torchvision
+torchaudio
+
+# Hugging Face libraries
+transformers
+peft
+accelerate
+
+# Progress bar and numerical operations
+tqdm
+numpy
+scipy
+
+# Datasets and evaluation
+datasets
+evaluate
+
+# Quantization and optimization
+bitsandbytes
+
+# Other utilities
+matplotlib
+pandas
+langchain
+langchain_community
+pypdf
+wandb
