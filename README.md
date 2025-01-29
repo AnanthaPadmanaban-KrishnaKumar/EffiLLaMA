@@ -121,6 +121,35 @@ lora_config = LoraConfig(
 1. The fine-tuned model is saved in the final_model directory.
 2. Logs and checkpoints are saved during training for monitoring progress.
 
+## Inference
+
+The fine-tuned model is hosted on Hugging Face at [EffiLLaMA on Hugging Face](https://huggingface.co/AIAlbus/EffiLLaMA).
+
+### Example Usage
+
+Here’s how to use the model for inference:
+
+```python
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from peft import PeftModel
+
+# Load tokenizer and model
+model_name = "AIAlbus/EffiLLaMA"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+base_model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", torch_dtype=torch.float16)
+model = PeftModel.from_pretrained(base_model, model_name)
+
+# Prepare input
+input_text = "Why did Harry Potter survive Voldemort's attack?"
+inputs = tokenizer(input_text, return_tensors="pt", padding=True, truncation=True)
+
+# Generate response
+output = model.generate(inputs['input_ids'], max_length=150, do_sample=True, temperature=0.7)
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+```
+
+
 ## Acknowledgments
 Hugging Face Transformers for tools to load and fine-tune the model.
 LangChain for efficient text preprocessing.
